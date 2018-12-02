@@ -4,10 +4,13 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private void setViews() {
         refreshLayout = findViewById(R.id.swipe_to_refresh);
         feedView = findViewById(R.id.feed_view);
+        feedView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private class FeedFetcher extends AsyncTask<Void, Void, Boolean>
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } catch (IOException e) {
                 Log.e(TAG, "Error while retrieving and parsing feed: ", e);
+            } catch (XmlPullParserException e) {
+                Log.e(TAG, "Error while parsing XML: ", e);
             }
             return false;
         }
