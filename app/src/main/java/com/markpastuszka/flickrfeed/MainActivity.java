@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout = findViewById(R.id.swipe_to_refresh);
         feedView = findViewById(R.id.feed_view);
         feedView.setLayoutManager(new LinearLayoutManager(this));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new FeedFetcher().execute();
+            }
+        });
     }
 
     private class FeedFetcher extends AsyncTask<Void, Void, Boolean>

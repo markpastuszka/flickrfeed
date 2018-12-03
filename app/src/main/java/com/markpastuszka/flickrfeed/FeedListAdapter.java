@@ -1,6 +1,8 @@
 package com.markpastuszka.flickrfeed;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,15 +33,16 @@ class FeedListAdapter
         this.images = images;
     }
 
+    @NonNull
     @Override
-    public FeedListViewHolder onCreateViewHolder(ViewGroup parent, int type) {
+    public FeedListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.image_adapter, parent, false);
         return new FeedListViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(FeedListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FeedListViewHolder holder, int position) {
         final ImageWithMetadata image = images.get(position);
 
         ImageView imgView = holder.feedView.findViewById(R.id.image_view);
@@ -51,8 +54,10 @@ class FeedListAdapter
 
         ((TextView)holder.feedView.findViewById(R.id.title_label)).setText(image.title);
         ((TextView)holder.feedView.findViewById(R.id.author_label)).setText(image.author);
-        ((TextView)holder.feedView.findViewById(R.id.description_label)).setText(image.description);
-        ((TextView)holder.feedView.findViewById(R.id.link_label)).setText(image.flickrUrl);
+        ((TextView)holder.feedView.findViewById(R.id.uploaded_label)).setText(image.uploadedDate.toString());
+        TextView linkLabel = holder.feedView.findViewById(R.id.link_label);
+        linkLabel.setText(image.flickrUrl);
+        Linkify.addLinks(linkLabel, Linkify.WEB_URLS);
     }
 
     @Override

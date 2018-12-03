@@ -1,12 +1,14 @@
 package com.markpastuszka.flickrfeed;
 
-public class ImageWithMetadata {
+import java.util.Date;
 
-    public String imageUrl;
-    public String title;
-    public String author;
-    public String description;
-    public String flickrUrl;
+class ImageWithMetadata {
 
-    public ImageWithMetadata() {}
+    String imageUrl;
+    String title;
+    String author;
+    Date uploadedDate;
+    String flickrUrl;
+
+    ImageWithMetadata() {}
 }
